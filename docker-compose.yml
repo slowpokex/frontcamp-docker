@@ -1,17 +1,25 @@
 version: '3.3'
 
 services:
-    app:
-        container_name: frontcamp_node_app
-        restart: always
-        build: ./app
-        ports:
-          - "3000:3000"
-        links:
-          - mongo
-    mongo:
-        container_name: frontcamp_mongo_instance
-        build: ./mongo
-        ports:
-            - "27017:27017"
-        restart: always
+    # app:
+    #     container_name: frontcamp_node_app
+    #     restart: always
+    #     build: ./app
+    #     ports:
+    #       - "3000:3000"
+    #     links:
+    #       - mongodb
+    #     depends_on: 
+    #       - mongodb
+    mongodb:
+      image: mongo:latest
+      ports:
+        - "27017:27017"
+    mongo_seed:
+      build: ./mongo
+      links:
+        - mongodb
+        
+networks:
+  app_network:
+    driver: bridge
