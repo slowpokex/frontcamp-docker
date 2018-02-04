@@ -1,3 +1,4 @@
+# File for import data into Docker container
 FROM mongo:latest
 RUN mkdir -p /usr/src/db
 WORKDIR /usr/src/db

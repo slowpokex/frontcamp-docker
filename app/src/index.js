@@ -5,16 +5,16 @@ import config from './config/env';
 
 const debug = require('debug')('frontcamp');
 
-// mongoose.connect(config.db.uri);
-// mongoose.connection.on('error', () => {
-//   throw new Error(`Unable to connect to MongoDB: ${ config.db.uri }`);
-// });
+mongoose.connect(config.db.uri);
+mongoose.connection.on('error', () => {
+  throw new Error(`Unable to connect to MongoDB: ${ config.db.uri }`);
+});
 
-// if (config.db.debug) {
-//   mongoose.set('debug', (collectionName, method, query, doc) => {
-//     debug(`${collectionName}.${method}`, util.inspect(query, false, 20), doc);
-//   });
-// }
+if (config.db.debug) {
+  mongoose.set('debug', (collectionName, method, query, doc) => {
+    debug(`${collectionName}.${method}`, util.inspect(query, false, 20), doc);
+  });
+}
 
 app.listen(config.port, () => {
   debug(`server started on the ${config.port} port (${config.env})`);

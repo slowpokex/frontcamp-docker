@@ -9,7 +9,7 @@ import path from 'path';
 
 import config from './env';
 import winstonInstance from './winston';
-// import routes from '../modules/routes';
+import routes from '../modules/routes';
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(compress());
 app.use(helmet());
 app.use(cors());
 
-app.set('views', path,join(__dirname, '../views'));
+app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 app.use('/static', express.static(path.join(__dirname, '../public')))
 
