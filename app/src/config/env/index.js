@@ -20,4 +20,4 @@ try {
   config = {};
 }
 
-export default Object.assign(defaults, config); 
+export default Object.assign(defaults, config);

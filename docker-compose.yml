@@ -1,18 +1,20 @@
 version: '3.3'
 
 services:
-    app:
-        container_name: frontcamp_node_app
-        build: ./app
-        ports:
-          - "3000:3000"
-        links:
-          - mongodb
-        environment:
-          MONGODB_URI: mongodb://mongodb:27017/frontcamp
-          NODE_ENV: production
-        depends_on: 
-          - mongodb
+    # app:
+    #     container_name: frontcamp_node_app
+    #     build: ./app
+    #     ports:
+    #       - "3000:3000"
+    #     links:
+    #       - mongodb
+    #     environment:
+    #       MONGODB_URI: mongodb://mongodb:27017/frontcamp
+    #       NODE_ENV: production
+    #       PORT: 3000
+    #       DEBUG: false
+    #     depends_on: 
+    #       - mongodb
     mongodb:
       container_name: mongo_instance
       image: mongo:latest
@@ -20,7 +22,7 @@ services:
       ports:
         - "27017:27017"
     mongo_seed:
-      container_name: mongo_importer
+      container_name: mongo_seed
       build: ./mongo
       links:
         - mongodb

@@ -10,6 +10,7 @@ import path from 'path';
 import config from './env';
 import winstonInstance from './winston';
 import routes from '../modules/routes';
+import passportInit from './passport';
 
 const app = express();
 
@@ -30,6 +31,8 @@ if (config.env === 'development') {
     colorStatus: true
   }));
 }
+
+passportInit(app);
 
 app.use('/', routes);
 
