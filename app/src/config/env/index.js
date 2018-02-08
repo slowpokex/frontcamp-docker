@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const defaults = {
+  securityMode: !!process.env.SECURITY_MODE,
   port: process.env.PORT || 3000,
   env: process.env.NODE_ENV || 'development',
   db: {

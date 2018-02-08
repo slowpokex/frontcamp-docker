@@ -32,7 +32,9 @@ if (config.env === 'development') {
   }));
 }
 
-passportInit(app);
+if (config.securityMode) {
+  passportInit(app);
+}
 
 app.use('/', routes);
 
