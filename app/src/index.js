@@ -1,3 +1,6 @@
+import 'babel-polyfill';
+import 'babel-register';
+
 import mongoose, { Error } from 'mongoose';
 import util from 'util';
 import app from './config/express';
@@ -21,4 +24,3 @@ app.listen(config.port, () => {
 });
 
 export default app;
-

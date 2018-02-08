@@ -1,6 +1,5 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import flash from 'connect-flash';
 import User from '../modules/users/repository';
 import UserFacade from '../modules/users/facade';
 
@@ -19,7 +18,6 @@ export default function (app) {
         return;
     }
 
-    app.use(flash());
     passport.use(new LocalStrategy({
         usernameField: 'id',
         passwordField: 'password',

@@ -1,6 +1,6 @@
 FROM node:latest
 WORKDIR /usr/src/app
-ADD package*.json ./
+COPY package*.json ./
 RUN npm install
-ADD . .
+COPY . .
 CMD ["npm", "start"]
