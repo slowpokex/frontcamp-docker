@@ -1,0 +1,19 @@
+head
+  meta(charset='UTF-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  title #{head}
+  link(rel='stylesheet', href='/public/css/404.css')
+.wrapper.row2
+  #container.clear
+    section#fof.clear
+      .hgroup
+        h1
+          span
+            strong #{code}
+        h2
+          span #{head}
+      p #{message}
+      p
+        a(href='javascript:history.go(-1)') &laquo; Go Back
+        |  / 
+        a(href='/') Go Home &raquo;

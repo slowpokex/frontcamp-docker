@@ -8,8 +8,8 @@ const router = new Router();
 router
   .route('/')
   .get((req, res) => {
-    res.json({
-      message: 'Lalka i tralik sasai lalka'
+    res.render('index', {
+      user: req.user
     });
   });
 
