@@ -12,6 +12,7 @@ services:
           MONGODB_URI: mongodb://mongodb:27017/frontcamp
           NODE_ENV: production
           PORT: 3000
+          SECURITY_MODE: "true"
           DEBUG: "false"
         depends_on: 
           - mongodb
