@@ -5,7 +5,7 @@ import { Container, Col, Row, Alert } from 'reactstrap'
 import Header from './components/header/Header'
 import BlogList from './components/blog-list/BlogList'
 import CreateBlog from './components/create-blog/CreateBlog'
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
 
 const mapStateToProps = (state) => ({
