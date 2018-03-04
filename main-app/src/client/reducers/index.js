@@ -1,16 +1,8 @@
-import { combineReducers } from 'redux';
-import user from './users';
-
-function listBlogs(state = [], action) {
-    return state;
-}
-
-function createBlog(state = {}, action) {
-    return state;
-}
+import { combineReducers } from 'redux'
+import user from './users'
+import blogs from './blogs'
 
 export default combineReducers({
-    user,
-    createBlog,
-    listBlogs
-});
+  user,
+  blogs
+})

@@ -44,7 +44,7 @@ class Header extends Component {
       <header className={ styles.header }>
         <div className={ styles.header_logo }>
           <a href="#">Frontcamp</a>
-        </div>        
+        </div>
         { this.renderIsAuth(this.props.user) }
       </header>
     )

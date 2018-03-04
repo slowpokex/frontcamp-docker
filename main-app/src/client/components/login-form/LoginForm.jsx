@@ -57,7 +57,7 @@ class LoginForm extends Component {
         </label>
         <label>
           Password
-          <input type="password" ref="password" placeholder="Password"/>
+          <input type="password" autoComplete="current-password" ref="password" placeholder="Password"/>
         </label>        
         { this.state.loginMessage ? <div className={styles.message}>{this.state.loginMessage}</div> : '' }
         <p>
