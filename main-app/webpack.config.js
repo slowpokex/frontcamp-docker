@@ -48,12 +48,12 @@ const clientConfig = {
   name: 'client',
   entry: [
     'babel-polyfill',
-    path.join(clientFolder, 'index.js')
+    path.resolve(path.join(clientFolder, 'index.js'))
   ],
 
   target: 'web',
   output: {
-    path: clientDistFolder,
+    path: path.resolve(clientDistFolder),
     filename: 'client-bundle.js',
     publicPath: '/public'
   },
@@ -93,14 +93,14 @@ const serverconfig = {
   name: 'server',
   entry: [
     'babel-polyfill',
-    path.join(serverFolder, 'index.js')
+    path.resolve(path.join(serverFolder, 'index.js'))
   ],
 
   target: 'node',
   externals: [nodeExternals()],
 
   output: {
-    path: serverDistFolder,
+    path: path.resolve(serverDistFolder),
     filename: 'server-bundle.js',
     publicPath: '/public'
   },

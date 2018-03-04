@@ -13,12 +13,28 @@ import winstonInstance from './winston'
 import routes from '../modules/routes'
 import passportInit from './passport'
 
+// import webpack from 'webpack'
+// import webpackDevMiddleware from 'webpack-dev-middleware'
+// import webpackHotMiddleware from 'webpack-hot-middleware'
+// import webpackHotServerMiddleware from 'webpack-hot-server-middleware'
+// import webpackConfig from '../../../webpack.config'
+// const compiler = webpack(webpackConfig)
+
 const app = express()
 
+// Pasers
 app.use(cookieParser(config.secret))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// Hot reloading middleware
+// app.use(webpackDevMiddleware(compiler, {
+//   publicPath: '/static/'
+// }))
+// app.use(webpackHotMiddleware(compiler.compilers.find(compiler => compiler.name === 'client')))
+// app.use(webpackHotServerMiddleware(compiler))
+
+// Addons
 app.use(compress())
 app.use(helmet())
 app.use(cors())
@@ -27,10 +43,12 @@ app.use(cors())
 app.use('/public', express.static(path.join(__dirname, '../../../public')))
 app.use(morgan(config.env === 'development' ? 'common' : 'tiny'))
 
+// Security
 if (config.securityMode) {
   passportInit(app)
 }
 
+// Routes
 app.use('/', routes)
 
 app.use((req, res, next) => {
@@ -49,6 +67,7 @@ app.use((err, req, res, next) => {
   })
 })
 
+// Logger
 if (config.env !== 'test') {
   app.use(expressWinston.errorLogger({
     winstonInstance

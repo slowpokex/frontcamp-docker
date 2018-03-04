@@ -1,0 +1,43 @@
+.header {
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  background: #000;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header_logo {
+    margin-left: 20px;
+    
+    a {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+
+  .header_font {
+    display: flex;
+    color: #fff;
+
+    .user_name {
+      width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  button {
+    padding: 12px;
+    color: #fff;
+    background: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin: 0 2%;
+  }
+}

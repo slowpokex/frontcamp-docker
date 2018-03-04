@@ -5,8 +5,7 @@ import { Container, Col, Row, Alert } from 'reactstrap'
 import Header from './components/header/Header'
 import BlogList from './components/blog-list/BlogList'
 import CreateBlog from './components/create-blog/CreateBlog'
-// import 'bootstrap/dist/css/bootstrap.css'
-import './App.css'
+import LoginForm from './components/login-form/LoginForm'
 
 const mapStateToProps = (state) => ({
   user: state.user
@@ -23,19 +22,12 @@ class App extends Component {
     if (authenticated) {
       return (
         <div>
-          <header className="App-header">
-            <CreateBlog></CreateBlog>
-          </header>
-          <div className="App-intro">
-            <BlogList></BlogList>
-          </div>
+          <CreateBlog></CreateBlog>
+          <BlogList></BlogList>
         </div>
       )
     } else {
-      return (
-        <Alert className='not-auth-alert' color="warning">
-          You aren't authenticated!
-        </Alert>)
+      return (<LoginForm user={this.props.user}></LoginForm>)
     }
   }
 
@@ -47,12 +39,9 @@ class App extends Component {
     const user = this.props.user
     return (
       <div>
-        <Header></Header>
-        {/* <Container className="App">          
-          { this.renderMain(user.authenticated) }
-          { user.isWaiting ? this.renderSpinner() : ''}
-        </Container> */}
-      </div> 
+        <Header user={user}></Header>
+        { this.renderMain(user.authenticated) }
+      </div>
     )
   }
 }

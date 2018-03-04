@@ -1,9 +1,9 @@
 import React from 'react'
-import { renderToString, renderToNodeStream } from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import httpStatus from 'http-status'
-import App from '../../../client/App'
+import App from './App'
 import { Provider } from 'react-redux'
-import configureStore from '../../../client/store/configure-store';
+import configureStore from './store/configure-store'
 
 const getTemplate = (app, preloadedState) => `
     <!DOCTYPE html>
@@ -12,7 +12,10 @@ const getTemplate = (app, preloadedState) => `
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
           <meta name="theme-color" content="#000000">
-          <link rel="stylesheet" href="/public/dist/css/style.css">
+          <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css"
+                integrity="sha256-GSio8qamaXapM8Fq9JYdGNTvk/dgs+cMLgPeevOYEx0="
+                crossorigin="anonymous" />
           <title>React App</title>
         </head>
         <body>

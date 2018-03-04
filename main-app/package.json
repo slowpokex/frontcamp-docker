@@ -22,7 +22,7 @@
     "start": "npm run start:server",
     "build": "webpack",
     "build:watch": "webpack --watch",
-    "dev:server": "cross-env NODE_ENV=development DEBUG=frontcamp concurrently --kill-others \"npm run build && nodemon --exec babel-node ./dist/server-bundle.js\" \"npm run build:watch\"",
+    "dev:server": "cross-env NODE_ENV=development DEBUG=frontcamp concurrently --kill-others \"npm run build && nodemon --exec babel-node ./dist/server-bundle.js\" \"npm run build:watch\"",    
     "dev": "npm run dev:server"
   },
   "dependencies": {
@@ -60,6 +60,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -111,6 +112,7 @@
     "webpack-dev-middleware": "^2.0.6",
     "webpack-dev-server": "^3.0.0",
     "webpack-hot-middleware": "^2.21.0",
+    "webpack-hot-server-middleware": "^0.4.0",
     "webpack-merge": "^4.1.2",
     "workbox-webpack-plugin": "^2.1.2"
   }
