@@ -1,47 +1,84 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import { connect } from 'react-redux'
-import { random } from 'lodash'
-import * as blogActions from '../../actions/blogsActions'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { random, isEmpty } from 'lodash';
+import * as blogActions from '../../actions/blogsActions';
+import styles from './create-blog.scss';
 
-function mapStateToProps (state, dispatch) {
+function mapStateToProps(state, dispatch) {
   return {
     user: state.user,
     listBlogs: state.listBlogs,
-    dispatch
-  }
+    dispatch,
+  };
 }
 
 class CreateBlog extends Component {
-  constructor () {
-    super()
-    this.sendBlog = this.sendBlog.bind(this)
+  constructor() {
+    super();
+    this.sendBlog = this.sendBlog.bind(this);
     this.state = {
-
-    }
+      message: '',
+    };
   }
 
-  sendBlog (event) {
-    event.preventDefault()
-    const blogTitle = ReactDOM.findDOMNode(this.refs.blogTitle).value
-    const blogText = ReactDOM.findDOMNode(this.refs.blogText).value
+  sendBlog(event) {
+    event.preventDefault();
+    const blogTitle = this.blogTitle.value;
+    const blogText = this.blogText.value;
+    const { user: { login } } = this.props;
+
+    if (isEmpty(blogTitle)) {
+      return this.setState({
+        message: 'Title is empty',
+      });
+    }
+
+    if (isEmpty(blogText)) {
+      return this.setState({
+        message: 'Text is empty',
+      });
+    }
 
     const blogForSend = {
       _id: random(0, Number.MAX_SAFE_INTEGER),
-      userId: this.props.user.login,
+      login,
       title: blogTitle,
-      body: blogText
-    }
+      body: blogText,
+    };
 
-    this.props.publishBlog(blogForSend)
+    this.props.publishBlog(blogForSend);
   }
 
-  render () {
+  render() {
     return (
-      <form onSubmit={ this.sendBlog }>
-
-      </form>)
+      <form className={styles.create_blog}>
+        <h4 className="text-center">Create Blog</h4>
+        <label htmlFor="title">
+          Title
+          <input
+            type="text"
+            ref={(input) => { this.blogTitle = input; }}
+            placeholder="Your blog title"
+          />
+        </label>
+        <label htmlFor="text">
+          Text
+          <textarea
+            ref={(input) => { this.blogText = input; }}
+            placeholder="Write something..."
+          />
+        </label>
+        {this.state.message ? <div className={styles.message}>{this.state.message}</div> : ''}
+        <p>
+          <input
+            type="submit"
+            className="button expanded"
+            value="Publish"
+            onClick={this.sendBlog}
+          />
+        </p>
+      </form>);
   }
 }
 
-export default connect(mapStateToProps, blogActions)(CreateBlog)
+export default connect(mapStateToProps, blogActions)(CreateBlog);

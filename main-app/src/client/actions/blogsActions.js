@@ -1,103 +1,112 @@
-import axios from 'axios'
-import * as types from '../config/constants'
-import config from '../config'
+import axios from 'axios';
+import * as types from '../config/constants';
+import config from '../config';
 
-function beginLoading () {
-  return { type: types.BEGIN_LOADING_ALL_BLOGS }
+const showError = (response) => {
+  if (response instanceof Error) {
+    console.log('Error', response);
+  }
+};
+
+function beginLoading() {
+  return { type: types.BEGIN_LOADING_ALL_BLOGS };
 }
 
-function errorLoading () {
-  return { type: types.ERROR_LOADING_ALL_BLOGS }
+function errorLoading() {
+  return { type: types.ERROR_LOADING_ALL_BLOGS };
 }
 
-function successLoading (data) {
+function successLoading(data) {
   return {
     type: types.SUCCESS_LOADING_ALL_BLOGS,
-    data
-  }
+    data,
+  };
 }
 
-function beginCreate () {
-  return { type: types.BEGIN_CREATE_BLOG }
+function beginCreate() {
+  return { type: types.BEGIN_CREATE_BLOG };
 }
 
-function errorCreate () {
-  return { type: types.ERROR_CREATE_BLOG }
+function errorCreate() {
+  return { type: types.ERROR_CREATE_BLOG };
 }
 
-function successCreate (data) {
+function successCreate(data) {
   return {
     type: types.SUCCESS_CREATE_BLOG,
-    data
-  }
+    data,
+  };
 }
 
-function makeCreateRequest (method, data, api = config.BLOGS_PATH) {
+function beginDelete() {
+  return { type: types.BEGIN_DELETE_BLOG };
+}
+
+function errorDelete() {
+  return { type: types.ERROR_DELETE_BLOG };
+}
+
+function successDelete(data) {
+  return {
+    type: types.SUCCESS_DELETE_BLOG,
+    data,
+  };
+}
+
+function makeCreateRequest(method, data, api = config.BLOGS_PATH) {
   return axios({
-    method: method,
+    method,
     url: api,
-    data: data
-  })
+    data,
+  });
 }
 
-export function publishBlog (data) {
-  return dispatch => {
-    dispatch(beginCreate())
+export function publishBlog(data) {
+  return (dispatch) => {
+    dispatch(beginCreate());
 
     return makeCreateRequest('post', data)
-      .then(response => {
+      .then((response) => {
         if (response.data) {
-          dispatch(successCreate(data))
+          dispatch(successCreate(data));
         } else {
-          dispatch(errorCreate())
-          return response.data.message
+          dispatch(errorCreate());
+          return response.data.message;
         }
       })
-      .catch(response => {
-        if (response instanceof Error) {
-          console.log('Error', response)
-        }
-      })
-  }
+      .catch(showError);
+  };
 }
 
-export function loadAllBlogs () {
-  return dispatch => {
-    dispatch(beginLoading())
+export function loadAllBlogs() {
+  return (dispatch) => {
+    dispatch(beginLoading());
 
     return axios.get(config.BLOGS_PATH)
-      .then(response => {
+      .then((response) => {
         if (response.data) {
-          dispatch(successLoading(response.data))
+          dispatch(successLoading(response.data));
         } else {
-          dispatch(errorLoading())
+          dispatch(errorLoading());
         }
       })
-      .catch(response => {
-        if (response instanceof Error) {
-          console.log('Error', response)
-        }
-      })
-  }
+      .catch(showError);
+  };
 }
 
-export function removeBlog (data) {
-  return dispatch => {
-    dispatch(beginCreate())
+export function removeBlog(id) {
+  return (dispatch) => {
+    dispatch(beginDelete());
 
-    return makeCreateRequest('post', data)
-      .then(response => {
+    return axios.delete(`${config.BLOGS_PATH}/${id}`)
+      .then((response) => {
         if (response.data) {
-          dispatch(successCreate(data))
+          dispatch(successDelete(id));
         } else {
-          dispatch(errorCreate())
-          return response.data.message
+          dispatch(errorDelete());
+          return response.data.message;
         }
       })
-      .catch(response => {
-        if (response instanceof Error) {
-          console.log('Error', response)
-        }
-      })
-  }
+      .catch(showError);
+  };
 }

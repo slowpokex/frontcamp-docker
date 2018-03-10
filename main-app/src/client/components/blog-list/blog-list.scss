@@ -1,0 +1,19 @@
+.card_list {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .card {
+        margin: 10px;
+        padding: 10px;
+        display: block;
+        border: 1px solid #22bb5b;
+        border-radius: 6px;
+        background: #22bb5b;
+        color: #fff;
+        min-width: 200px;
+        max-width: 300px;
+        height: 250px;
+    }
+}

@@ -1,78 +1,114 @@
-import axios from 'axios'
-import * as types from '../config/constants'
-import config from '../config'
+import axios from 'axios';
+import * as types from '../config/constants';
+import config from '../config';
 
-function beginLogin () {
-  return { type: types.MANUAL_LOGIN_USER }
+function beginLogin() {
+  return { type: types.MANUAL_LOGIN_USER };
 }
 
-function loginError () {
-  return { type: types.LOGIN_ERROR_USER }
+function loginError() {
+  return { type: types.LOGIN_ERROR_USER };
 }
 
-function loginSuccess (data) {
+function loginSuccess(data) {
   return {
     type: types.LOGIN_SUCCESS_USER,
-    data
-  }
+    data,
+  };
 }
 
-function beginLogout () {
-  return { type: types.LOGOUT_USER }
+function beginLogout() {
+  return { type: types.LOGOUT_USER };
 }
 
-function logoutSuccess () {
-  return { type: types.LOGOUT_SUCCESS_USER }
+function logoutSuccess() {
+  return { type: types.LOGOUT_SUCCESS_USER };
 }
 
-function logoutError () {
-  return { type: types.LOGOUT_ERROR_USER }
+function logoutError() {
+  return { type: types.LOGOUT_ERROR_USER };
 }
 
-function makeUserRequest (method, data, api = config.LOGIN_PATH) {
+function beginRegister() {
+  return { type: types.REGISTER_USER };
+}
+
+function registerSuccess() {
+  return { type: types.REGISTER_SUCCESS_USER };
+}
+
+function registerError() {
+  return { type: types.REGISTER_ERROR_USER };
+}
+
+function makeUserRequest(method, data, api = config.LOGIN_PATH) {
   return axios({
-    method: method,
+    method,
     url: api,
-    data: data
-  })
+    data,
+  });
 }
 
-export function manualLogin (data) {
-  return dispatch => {
-    dispatch(beginLogin())
+export function manualLogin(data) {
+  return (dispatch) => {
+    dispatch(beginLogin());
 
-    return makeUserRequest('post', data).then(response => {
+    return makeUserRequest('post', data).then((response) => {
       if (response.data.success) {
-        dispatch(loginSuccess(data))
+        dispatch(loginSuccess(data));
       } else {
-        dispatch(loginError())
-        return response.data.message
+        dispatch(loginError());
+        return response.data.message;
       }
     })
-      .catch(response => {
+      .catch((response) => {
         if (response instanceof Error) {
-          console.log('Error', response.message)
+          console.log('Error', response.message);
         }
-      })
-  }
+      });
+  };
 }
 
-export function manualLogout () {
-  return dispatch => {
-    dispatch(beginLogout())
+export function manualLogout() {
+  return (dispatch) => {
+    dispatch(beginLogout());
 
     return axios.get(config.LOGOUT_PATH)
-      .then(response => {
+      .then((response) => {
         if (response.data.success) {
-          dispatch(logoutSuccess())
+          dispatch(logoutSuccess());
         } else {
-          dispatch(logoutError())
+          dispatch(logoutError());
         }
       })
-      .catch(response => {
+      .catch((response) => {
         if (response instanceof Error) {
-          console.log('Error', response.message)
+          console.log('Error', response.message);
+        }
+      });
+  };
+}
+
+export function register(data) {
+  return (dispatch) => {
+    dispatch(beginRegister());
+
+    return makeUserRequest('post', data, config.REGISTER_PATH)
+      .then((response) => {
+        if (response.data.success) {
+          dispatch(registerSuccess());
+          dispatch(manualLogin(data));
+        } else {
+          dispatch(registerError());
+          const registerMessage = response.data.message;
+          return registerMessage;
         }
       })
-  }
+      .catch((response) => {
+        if (response instanceof Error) {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', response.message);
+        }
+      });
+  };
 }

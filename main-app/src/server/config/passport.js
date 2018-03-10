@@ -67,6 +67,7 @@ export default function (app) {
     resave: false, // do not automatically write to the session store
     cookie: { httpOnly: true, maxAge: 2419200000 }
   }))
+
   app.use(passport.initialize())
   app.use(passport.session())
   app.use(flash())
@@ -92,6 +93,20 @@ export default function (app) {
     return res.json({ success: true })
   })
 
+  app.post('/register', (req, res) => {
+    UserFacade.findOne({ login: req.body.login })
+      .then(user => {
+        if (user) {
+          return res.json({ success: false, message: 'Login already in use' })
+        }
+        return UserFacade.create(req.body)
+      })
+      .then(() => res.json({ success: true }))
+      .catch((err) => {
+        console.error(err)
+        return res.json({ success: false })
+      })
+  })
+
   return app
 }
-

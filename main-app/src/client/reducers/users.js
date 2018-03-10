@@ -10,42 +10,62 @@ import {
   LOGOUT_ERROR_USER,
   REGISTER_USER,
   REGISTER_SUCCESS_USER,
-  REGISTER_ERROR_USER
-} from '../config/constants'
+  REGISTER_ERROR_USER,
+} from '../config/constants';
 
 const user = (state = {
   isWaiting: false,
   authenticated: false,
-  login: ''
+  login: '',
 }, action) => {
   switch (action.type) {
     case MANUAL_LOGIN_USER:
-      return Object.assign({}, state, { isWaiting: true })
+      return Object.assign({}, state, { isWaiting: true });
     case LOGIN_SUCCESS_USER:
-      return Object.assign({}, state, { isWaiting: false, authenticated: true, login: action.data.login })
+      return Object.assign({}, state, {
+        isWaiting: false,
+        authenticated: true,
+        login: action.data.login,
+      });
     case LOGIN_ERROR_USER:
-      return Object.assign({}, state, { isWaiting: false, authenticated: false })
+      return Object.assign({}, state, {
+        isWaiting: false,
+        authenticated: false,
+      });
     case SIGNUP_USER:
-      return Object.assign({}, state, { isWaiting: true })
+      return Object.assign({}, state, { isWaiting: true });
     case SIGNUP_SUCCESS_USER:
-      return Object.assign({}, state, { isWaiting: false, authenticated: true })
+      return Object.assign({}, state, {
+        isWaiting: false,
+        authenticated: true,
+      });
     case SIGNUP_ERROR_USER:
-      return Object.assign({}, state, { isWaiting: false, authenticated: false })
+      return Object.assign({}, state, {
+        isWaiting: false,
+        authenticated: false,
+      });
     case LOGOUT_USER:
-      return Object.assign({}, state, { isWaiting: true })
+      return Object.assign({}, state, { isWaiting: true });
     case LOGOUT_SUCCESS_USER:
-      return Object.assign({}, state, { isWaiting: false, authenticated: false, login: '' })
+      return Object.assign({}, state, {
+        isWaiting: false,
+        authenticated: false,
+        login: '',
+      });
     case LOGOUT_ERROR_USER:
-      return Object.assign({}, state, { isWaiting: false, authenticated: true })
+      return Object.assign({}, state, {
+        isWaiting: false,
+        authenticated: true,
+      });
     case REGISTER_USER:
-      return Object.assign({}, state, { isWaiting: true })
+      return Object.assign({}, state, { isWaiting: true });
     case REGISTER_SUCCESS_USER:
-      return Object.assign({}, state, { isWaiting: false })
+      return Object.assign({}, state, { isWaiting: false });
     case REGISTER_ERROR_USER:
-      return Object.assign({}, state, { isWaiting: false })
+      return Object.assign({}, state, { isWaiting: false });
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default user
+export default user;

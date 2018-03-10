@@ -1,9 +1,12 @@
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import httpStatus from 'http-status'
-import App from './App'
-import { Provider } from 'react-redux'
-import configureStore from './store/configure-store'
+import React from 'react';
+import lodash from 'lodash';
+import { renderToNodeStream } from 'react-dom/server';
+import { StaticRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import App from './App';
+import configureStore from './store/configure-store';
+
+const DELIMITER = 'UniqueTemplateDelimiter';
 
 const getTemplate = (app, preloadedState) => `
     <!DOCTYPE html>
@@ -28,17 +31,33 @@ const getTemplate = (app, preloadedState) => `
           </script>
           <script src="/public/dist/client-bundle.js"></script>
         </body>
-    </html>`
+    </html>`;
 
 export default (req, res) => {
-  const store = configureStore()
+  res.setHeader('content-type', 'text/html');
+  const context = {};
+  const store = configureStore();
+
   const app = (
     <Provider store={store}>
-      <App />
+      <Router location={req.url} context={context}>
+        <App />
+      </Router>
     </Provider>
-  )
-  const renderedHtml = renderToString(app)
-  const preloadedState = store.getState()
+  );
 
-  res.status(httpStatus.OK).send(getTemplate(renderedHtml, preloadedState))
-}
+  if (context.url) {
+    return res.redirect(context.url);
+  }
+
+  const streamApp = renderToNodeStream(app);
+  const preloadedState = store.getState();
+  const templateParts = getTemplate(DELIMITER, preloadedState).split(DELIMITER);
+
+  res.write(lodash.first(templateParts));
+  streamApp.pipe(res, { end: false });
+  streamApp.on('end', () => {
+    res.write(lodash.last(templateParts));
+    res.end();
+  });
+};

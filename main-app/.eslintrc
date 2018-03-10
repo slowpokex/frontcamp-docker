@@ -1,3 +1,21 @@
 {
-    "extends": "standard"
+    "extends": "airbnb",
+    "rules": {
+        "react/prop-types": "warn",
+        "react/no-find-dom-node": "warn",
+        "consistent-return": "warn",
+        "global-require": "warn",
+        "no-underscore-dangle":"warn",
+        "jsx-a11y/anchor-is-valid": [
+            "error",
+            {
+                "components": [
+                    "Link"
+                ],
+                "specialLink": [
+                    "to"
+                ]
+            }
+        ]
+    }
 }

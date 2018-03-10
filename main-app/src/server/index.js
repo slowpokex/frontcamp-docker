@@ -10,7 +10,7 @@ const debug = require('debug')('frontcamp');
 
 mongoose.connect(config.db.uri);
 mongoose.connection.on('error', () => {
-  throw new Error(`Unable to connect to MongoDB: ${ config.db.uri }`);
+  throw new Error(`Unable to connect to MongoDB: ${config.db.uri}`);
 });
 
 if (config.db.debug) {

@@ -1,57 +1,53 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import * as blogsActions from '../../actions/blogsActions'
-import './blog-list.css'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as blogsActions from '../../actions/blogsActions';
+import styles from './blog-list.scss';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.user,
-  blogs: state.blogs
-})
+  blogs: state.blogs,
+});
+
+const Card = (props) => {
+  const { card } = props;
+  return (
+    <div className={styles.card}>
+      { card.title }
+    </div>
+  );
+};
 
 class BlogList extends Component {
-  constructor () {
-    super()
-    // this.renderList = this.renderList.bind(this)
-    // this.removeBlog = this.removeBlog.bind(this)
+  constructor() {
+    super();
+    this.handleFilter = this.handleFilter.bind(this);
+    this.removeBlog = this.removeBlog.bind(this);
   }
 
-  componentDidMount () {
-    this.props.loadAllBlogs()
+  componentDidMount() {
+    this.props.loadAllBlogs();
   }
 
-  handleFilter (event) {
+  handleFilter(event) {
 
   }
 
-  removeBlog (event) {
-    console.log(event.target.name)
+  removeBlog(event) {
+
   }
 
-  // renderCard ({ id, title, body }) {
-  //   return (
-  //     <div key={ id }>
-        
-  //     </div>)
-  // };
-
-  // renderList (elems) {
-  //   if (!elems || !elems.length) {
-  //     return (<div>No data available!</div>)
-  //   }
-  //   return (
-  //     <Row>
-  //       { elems.map(elem => this.renderCard(elem)) }
-  //     </Row>
-  //   )
-  // }
-
-  render () {
+  render() {
+    const { blogs: { listBlogs } } = this.props;
     return (
-      <div>
-        LOl
+      <div className={styles.card_list}>
+        {listBlogs.map(card => (<Card
+          onRemove={this.removeBlog}
+          card={card}
+          key={card._id}
+        />)) }
       </div>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, blogsActions)(BlogList)
+export default connect(mapStateToProps, blogsActions)(BlogList);

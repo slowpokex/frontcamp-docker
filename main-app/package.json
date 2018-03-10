@@ -22,7 +22,8 @@
     "start": "npm run start:server",
     "build": "webpack",
     "build:watch": "webpack --watch",
-    "run:dev:bundle": "wait-on ./dist/server-bundle.js && nodemon --exec babel-node ./dist/server-bundle.js",
+    "window": "open http://localhost:8888",
+    "run:dev:bundle": "wait-on ./dist/server-bundle.js && nodemon --exec babel-node ./dist/server-bundle.js && npm run window",
     "dev:server": "cross-env NODE_ENV=development DEBUG=frontcamp concurrently --kill-others \"npm run build:watch\" \"npm run run:dev:bundle\"",
     "dev": "npm run dev:server"
   },
@@ -104,6 +105,7 @@
     "mocha": "^4.1.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.17.1",
+    "open": "0.0.5",
     "postcss-loader": "^2.1.1",
     "sass-loader": "^6.0.7",
     "source-map-support": "^0.5.3",

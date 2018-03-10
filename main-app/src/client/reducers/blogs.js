@@ -10,24 +10,24 @@ import {
   DELETE_BLOG,
   BEGIN_DELETE_BLOG,
   ERROR_DELETE_BLOG,
-  SUCCESS_DELETE_BLOG
-} from '../config/constants'
+  SUCCESS_DELETE_BLOG,
+} from '../config/constants';
 
 const blogs = (state = {
   isWaiting: false,
   listBlogs: [],
-  createBlog: {}
+  createBlog: {},
 }, action) => {
   switch (action.type) {
     case LOAD_ALL_BLOGS:
-      return Object.assign({}, state, { isWaiting: true })
+      return Object.assign({}, state, { isWaiting: true });
     case SUCCESS_LOADING_ALL_BLOGS:
-      return Object.assign({}, state, { isWaiting: false, listBlogs: action.data })
+      return Object.assign({}, state, { isWaiting: false, listBlogs: action.data });
     case ERROR_LOADING_ALL_BLOGS:
-      return Object.assign({}, state, { isWaiting: false, listBlogs: [] })
+      return Object.assign({}, state, { isWaiting: false, listBlogs: [] });
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default blogs
+export default blogs;
