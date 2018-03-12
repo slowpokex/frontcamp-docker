@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
   },
   userId: {
     type: String,
-    ref: 'User'
+    ref: 'User',
   },
   title: {
     type: String,

@@ -21,22 +21,22 @@ const schema = new mongoose.Schema({
     maxlength: 128,
   },
   password: {
-      type: String,
-      required: true,
-      minlength: 6,
+    type: String,
+    required: true,
+    minlength: 6,
   },
   displayName: {
-      type: String,
-      default: 'Anonymous',
+    type: String,
+    default: 'Anonymous',
   },
   email: {
-      type: String,
+    type: String,
   },
   role: {
     type: String,
     enum: ['GUEST', 'USER', 'MODERATOR', 'ADMIN'],
     default: 'GUEST',
-},
+  },
   lastModifiedDate: Date,
 });
 

@@ -3,8 +3,8 @@ version: '3.3'
 services:
   # frontend:
     # backend:
-    #     container_name: node_app
-    #     build: ./backend
+    #     container_name: main_app
+    #     build: ./main_app
     #     ports:
     #       - "8888:8888"
     #     links:
@@ -13,7 +13,7 @@ services:
     #       MONGODB_URI: mongodb://mongodb:27017/frontcamp
     #       NODE_ENV: production
     #       PORT: 8888
-    #       # SECURITY_MODE: "true"
+    #       SECURITY_MODE: "true"
     #       DEBUG: "false"
     #     depends_on: 
     #       - mongodb

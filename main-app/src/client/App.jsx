@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 
 import Header from './components/header/Header';
 import BlogList from './components/blog-list/BlogList';
@@ -19,6 +19,7 @@ const UserActions = () => (
   <Switch>
     <Route exact path="/login" component={LoginForm} />
     <Route exact path="/register" component={RegisterForm} />
+    <Redirect from="/" to="/login" />
   </Switch>
 );
 
@@ -33,6 +34,7 @@ const BlogActions = () => (
   <Switch>
     <Route exact path="/create" component={CreateBlog} />
     <Route exact path="/list" component={BlogList} />
+    <Redirect from="/" to="/list" />
   </Switch>
 );
 

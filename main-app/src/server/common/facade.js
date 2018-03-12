@@ -1,5 +1,3 @@
-import { Schema } from "mongoose";
-
 export default class Facade {
   constructor(Schema) {
     this.Schema = Schema;
@@ -17,7 +15,7 @@ export default class Facade {
 
   /**
    * Count schema instances
-   * @param {*} args 
+   * @param {*} args
    */
   count(...args) {
     return this.Schema
@@ -28,7 +26,7 @@ export default class Facade {
 
   /**
    * Find instances
-   * @param {*} args 
+   * @param {*} args
    * @returns {Promise}
    */
   find(...args) {
@@ -39,7 +37,7 @@ export default class Facade {
 
   /**
    * Find one instance
-   * @param {*} args 
+   * @param {*} args
    * @returns {Promise}
    */
   findOne(...args) {
@@ -50,7 +48,7 @@ export default class Facade {
 
   /**
    * Find by unique ID
-   * @param {*} args 
+   * @param {*} args
    * @returns {Promise}
    */
   findById(...args) {
@@ -61,7 +59,7 @@ export default class Facade {
 
   /**
    * Update instances
-   * @param {*} args 
+   * @param {*} args
    * @returns {Promise}
    */
   update(...args) {
@@ -72,7 +70,7 @@ export default class Facade {
 
   /**
    * Remove instances
-   * @param {*} args 
+   * @param {*} args
    * @returns {Promise}
    */
   remove(...args) {

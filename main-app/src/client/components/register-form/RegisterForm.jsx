@@ -88,6 +88,7 @@ class RegisterForm extends Component {
           <input
             required
             minLength={6}
+            autoComplete="username"
             type="text"
             ref={(input) => { this.login = input; }}
             placeholder="Your login"
@@ -97,6 +98,7 @@ class RegisterForm extends Component {
           Email
           <input
             type="email"
+            autoComplete="email"
             ref={(input) => { this.email = input; }}
             placeholder="Your email"
           />

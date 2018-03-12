@@ -46,6 +46,7 @@ class LoginForm extends Component {
           Login
           <input
             type="text"
+            autoComplete="username"
             ref={(input) => { this.login = input; }}
             placeholder="Your login"
           />

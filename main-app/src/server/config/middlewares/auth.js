@@ -1,9 +1,9 @@
-import config from '../env'
+import config from '../env';
 
-export default function redirect (req, res, next) {
+export default function redirect(req, res, next) {
   if (!config.securityMode) {
-    return next()
+    return next();
   }
-  if (req.isAuthenticated()) { return next() }
-  res.redirect('/')
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
 }

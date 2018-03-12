@@ -1,10 +1,9 @@
-import Facade from "../../../common/facade";
-import Repository from "./repository";
+import Facade from '../../../common/facade';
+import Repository from './repository';
 
 const POPULATE_FIELD = 'userId';
 
 class BlogsFacade extends Facade {
-
   /**
    * Find blog instances
    * @param {*} args

@@ -1,12 +1,12 @@
-import { Router } from 'express'
-import apiRouter from './api'
-import reactRoute from '../../client/handler'
-import auth from '../config/middlewares/auth'
+import { Router } from 'express';
+import apiRouter from './api';
+import reactRoute from '../../client/handler';
+import auth from '../config/middlewares/auth';
 
-const router = new Router()
+const router = new Router();
 
-router.use('/api', auth, apiRouter)
+router.use('/api', auth, apiRouter);
 
-router.route('*').get(reactRoute)
+router.route('*').get(reactRoute);
 
-export default router
+export default router;

@@ -6,8 +6,9 @@ import configureStore from './store/configure-store';
 import './index.css';
 
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
+// Need for window manipulation
+/* eslint no-undef: "warn" */
 const store = configureStore(window.PRELOADED_STATE);
 delete window.PRELOADED_STATE;
 
@@ -20,4 +21,3 @@ const ReduxReactApp = props => (
 );
 
 ReactDOM.hydrate((<ReduxReactApp store={store} />), document.getElementById('root'));
-registerServiceWorker();

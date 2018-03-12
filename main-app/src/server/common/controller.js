@@ -52,15 +52,15 @@ export default class Controller {
   async update(req, res, next) {
     try {
       const results = await this.facade.update({
-        _id: req.params.id
-      }, req.body);      
+        _id: req.params.id,
+      }, req.body);
       if (results.n < 1) {
         return res.sendStatus(httpStatus.NOT_FOUND);
       }
       if (results.nModified < 1) {
         return res.sendStatus(httpStatus.NOT_MODIFIED);
       }
-      const data = await this.facade.findById(req.params.id);      
+      const data = await this.facade.findById(req.params.id);
       if (!data) {
         return res.sendStatus(httpStatus.NOT_FOUND);
       }
@@ -73,7 +73,7 @@ export default class Controller {
   async remove(req, res, next) {
     try {
       const data = await this.facade.remove({
-        _id: req.params.id
+        _id: req.params.id,
       });
       if (!data) {
         return res.sendStatus(httpStatus.NOT_FOUND);

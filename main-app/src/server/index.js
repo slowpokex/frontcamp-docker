@@ -1,6 +1,3 @@
-import 'babel-polyfill';
-import 'babel-register';
-
 import mongoose, { Error } from 'mongoose';
 import util from 'util';
 import notifier from 'node-notifier';

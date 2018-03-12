@@ -31770,12 +31770,10 @@ var _App = __webpack_require__(519);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _registerServiceWorker = __webpack_require__(592);
-
-var _registerServiceWorker2 = _interopRequireDefault(_registerServiceWorker);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Need for window manipulation
+/* eslint no-undef: "warn" */
 var store = (0, _configureStore2.default)(window.PRELOADED_STATE);
 delete window.PRELOADED_STATE;
 
@@ -31792,7 +31790,6 @@ var ReduxReactApp = function ReduxReactApp(props) {
 };
 
 _reactDom2.default.hydrate(_react2.default.createElement(ReduxReactApp, { store: store }), document.getElementById('root'));
-(0, _registerServiceWorker2.default)();
 
 /***/ }),
 /* 441 */
@@ -54381,7 +54378,8 @@ var UserActions = function UserActions() {
     _reactRouterDom.Switch,
     null,
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _LoginForm2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: _RegisterForm2.default })
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/register', component: _RegisterForm2.default }),
+    _react2.default.createElement(_reactRouterDom.Redirect, { from: '/', to: '/login' })
   );
 };
 
@@ -54397,7 +54395,8 @@ var BlogActions = function BlogActions() {
     _reactRouterDom.Switch,
     null,
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/create', component: _CreateBlog2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/list', component: _BlogList2.default })
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/list', component: _BlogList2.default }),
+    _react2.default.createElement(_reactRouterDom.Redirect, { from: '/', to: '/list' })
   );
 };
 
@@ -56826,6 +56825,7 @@ var LoginForm = function (_Component) {
           'Login',
           _react2.default.createElement('input', {
             type: 'text',
+            autoComplete: 'username',
             ref: function ref(input) {
               _this3.login = input;
             },
@@ -57095,6 +57095,7 @@ var RegisterForm = function (_Component) {
           _react2.default.createElement('input', {
             required: true,
             minLength: 6,
+            autoComplete: 'username',
             type: 'text',
             ref: function ref(input) {
               _this3.login = input;
@@ -57108,6 +57109,7 @@ var RegisterForm = function (_Component) {
           'Email',
           _react2.default.createElement('input', {
             type: 'email',
+            autoComplete: 'email',
             ref: function ref(input) {
               _this3.email = input;
             },
@@ -57311,120 +57313,6 @@ exports.push([module.i, ".App__container___1wKrR {\n  left: 20%;\n  top: 5%;\n  
 exports.locals = {
 	"container": "App__container___1wKrR"
 };
-
-/***/ }),
-/* 592 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = register;
-exports.unregister = unregister;
-// In production, we register a service worker to serve assets from local cache.
-
-// This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
-// will only see deployed updates on the "N+1" visit to a page, since previously
-// cached resources are updated in the background.
-
-// To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
-// This link also includes instructions on opting out of this behavior.
-
-var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
-// [::1] is the IPv6 localhost address.
-window.location.hostname === '[::1]' ||
-// 127.0.0.1/8 is considered localhost for IPv4.
-window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/));
-
-function register() {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    var publicUrl = new URL(process.env.PUBLIC_URL, window.location);
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      // from what our page is served on. This might happen if a CDN is used to
-      // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
-      return;
-    }
-
-    window.addEventListener('load', function () {
-      var swUrl = process.env.PUBLIC_URL + '/service-worker.js';
-
-      if (isLocalhost) {
-        // This is running on localhost. Lets check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl);
-
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(function () {
-          console.log('This web app is being served cache-first by a service ' + 'worker. To learn more, visit https://goo.gl/SC7cgQ');
-        });
-      } else {
-        // Is not local host. Just register service worker
-        registerValidSW(swUrl);
-      }
-    });
-  }
-}
-
-function registerValidSW(swUrl) {
-  navigator.serviceWorker.register(swUrl).then(function (registration) {
-    registration.onupdatefound = function () {
-      var installingWorker = registration.installing;
-      installingWorker.onstatechange = function () {
-        if (installingWorker.state === 'installed') {
-          if (navigator.serviceWorker.controller) {
-            // At this point, the old content will have been purged and
-            // the fresh content will have been added to the cache.
-            // It's the perfect time to display a "New content is
-            // available; please refresh." message in your web app.
-            console.log('New content is available; please refresh.');
-          } else {
-            // At this point, everything has been precached.
-            // It's the perfect time to display a
-            // "Content is cached for offline use." message.
-            console.log('Content is cached for offline use.');
-          }
-        }
-      };
-    };
-  }).catch(function (error) {
-    console.error('Error during service worker registration:', error);
-  });
-}
-
-function checkValidServiceWorker(swUrl) {
-  // Check if the service worker can be found. If it can't reload the page.
-  fetch(swUrl).then(function (response) {
-    // Ensure service worker exists, and that we really are getting a JS file.
-    if (response.status === 404 || response.headers.get('content-type').indexOf('javascript') === -1) {
-      // No service worker found. Probably a different app. Reload the page.
-      navigator.serviceWorker.ready.then(function (registration) {
-        registration.unregister().then(function () {
-          window.location.reload();
-        });
-      });
-    } else {
-      // Service worker found. Proceed as normal.
-      registerValidSW(swUrl);
-    }
-  }).catch(function () {
-    console.log('No internet connection found. App is running in offline mode.');
-  });
-}
-
-function unregister() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(function (registration) {
-      registration.unregister();
-    });
-  }
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ })
 /******/ ]);
